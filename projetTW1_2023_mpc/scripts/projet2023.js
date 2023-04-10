@@ -32,7 +32,8 @@ const raz = function(){
     abonneClickJoueurs();
     viderFeuilleDeMatch()
     effectifsA0();
-   
+    
+    console.log('hello world');
 }
 
 /**
@@ -40,17 +41,17 @@ const raz = function(){
  */
  
 const viderFeuilleDeMatch = function(){
-    const validforma= verifFormation();
-    const feuilledema=document.getElementBy('');
+    const inputFormation = document.getElementById('formation');
+    const validforma = verifFormation(inputFormation.value); // ATTENTION à mettre les paramètres
+    // Id + un fils ul
+    const feuilledema = document.querySelector('#feuilleDeMatch > ul')
 
     if (validforma) {
         feuilledema.innerHTML= '';
-    } else {
-
     }
 }
 
-    /**
+/**
  * Réinitialise tous les effectifs du tableau HTML à 0
  */
 const effectifsA0=function(){
@@ -97,8 +98,11 @@ const changeFormation = function(){
  * @return {Boolean} - true si la formation est valide, false sinon
  */
 const verifFormation = function(formation){
-	const [defenseurs, milieux, attaquants] = formation.match(/\d/g).map(Number);
+  const defenseurs = parseInt(formation[0])
+  const milieux = parseInt(formation[1])
+  const attaquants = parseInt(formation[2])
 
+/*
   if (defenseurs >= 3 && defenseurs <= 5 &&
       milieux >= 3 && milieux <= 5 &&
       attaquants >= 1 && attaquants <= 3) {
@@ -106,9 +110,26 @@ const verifFormation = function(formation){
   }
   else{
     return false;
-  }
-	
-		
+  }*/
+
+  // Return de la condition (renvoie un booléen)
+  /*console.error((
+    defenseurs >= 3 && 
+    defenseurs <= 5 &&
+    milieux >= 3 && 
+    milieux <= 5 &&
+    attaquants >= 1 && 
+    attaquants <= 3 &&
+    defenseurs + milieux + attaquants == 10));*/
+
+  return (
+    defenseurs >= 3 && 
+    defenseurs <= 5 &&
+    milieux >= 3 && 
+    milieux <= 5 &&
+    attaquants >= 1 && 
+    attaquants <= 3 &&
+    defenseurs + milieux + attaquants == 10)
 }
 
 
@@ -139,19 +160,37 @@ const remplirPostes = function(formation){
  */
 
 const creerJoueur = function(data){
-	const liste = document.getElementById('joueurs');
+    //console.log("data : " + JSON.stringify(data));
+    // créer une div joueur (attention aux attributs nécessaires)
     const div = document.createElement('div');
-    div.textContent = nom;
-    div.id =  "j-"+id.substring(2)
-    liste.appendChild(div)
+    // ID du joueur
+    div.id =  "j-" + data.id
 
-    //TODO créer une div joueur (attention aux attributs nécessaires)
-	
 	// TODO créer l'image et l'ajouter  à la div joueur
+    const image = document.createElement('img');
+    image.src = data.src
+    div.appendChild(image)
     
-    // TODO créer les <div> correspondants au nom et au poste et les ajouter  à la div joueur
+    // TODO créer les <div> correspondants au nom et au poste et les ajouter à la div joueur
+    const infoDiv = document.createElement('div')
+    infoDiv.setAttribute("class", "infoDiv")
+
+
+    const nameDiv = document.createElement('div')
+    nameDiv.setAttribute("class", "name")
+    nameDiv.textContent = data.nom
+
+    const posteDiv = document.createElement('div')
+    posteDiv.setAttribute("class", "poste")
+    posteDiv.textContent = data.poste
+
+    infoDiv.appendChild(nameDiv)
+    infoDiv.appendChild(posteDiv)
+
+    div.appendChild(infoDiv)
     
     // TODO : relisez bien la documentation
+    return div
 }
 
 

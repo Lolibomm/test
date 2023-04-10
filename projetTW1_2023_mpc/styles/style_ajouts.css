@@ -11,6 +11,16 @@ header{
   
 }
 
+#joueurs {
+  /* CSS GRID ou FLEX */ 
+  display: flex;
+}
+
+#joueurs > div {
+  border: 1px solid black;
+  width: min-content
+}
+
 h1>span:first-letter{
   color:white;
   font-size: 130%;
