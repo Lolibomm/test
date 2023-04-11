@@ -191,16 +191,16 @@ const creerJoueur = function(data){
     
     switch (data.poste){
         case 'gardien' :
-            div.setAttribute("class", "cartejoueur cartegardien")
+            div.setAttribute("class", "cartejoueur gardien")
             break
         case 'defenseur':
-            div.setAttribute("class","cartejoueur cartedefenseur")
+            div.setAttribute("class","cartejoueur defenseur")
             break
         case 'milieu':
-            div.setAttribute("class","cartejoueur cartemilieu")
+            div.setAttribute("class","cartejoueur milieu")
             break
         case 'attaquant':
-            div.setAttribute("class","cartejoueur carteattaquant")
+            div.setAttribute("class","cartejoueur attaquant")
             break
         default:
             console.log('pas de poste');  
@@ -226,18 +226,6 @@ const abonneClickJoueurs = function(){
         //console.log(joueurChoisi);
         joueurChoisi[i].addEventListener("click", selectionneJoueur);
   }
-   
-
-    
-    /* const joueur = document.querySelectorAll('.joueurs')
-    console.log(joueur);
-    joueur.forEach(element => {
-        console.log(element);
-        addEventListener('click',selectionneJoueur())
-        
-    });
-    
-    */
 
     //TODO
 }
@@ -263,7 +251,13 @@ const selectionneJoueur = function(){
  * @returns {HTMLElement || null} - une div de class "positions" disponible dans cette ligne
  */
 const trouveEmplacement = function(ligne){
-    //TODO
+    const enfant = ligne.childNodes
+    console.log(enfant);
+    for (let i = 0; i < enfant.length; i++) {
+        if (enfant[i].firstchild == null){
+            return enfant[i]
+        }     
+    }
 }
 
 /**
@@ -273,6 +267,7 @@ const trouveEmplacement = function(ligne){
  * @returns {HTMLElement} - une div parmi les id #ligne...
  */
 const trouveLigne = function(poste){
+    console.log("ligne" + poste.substring(0,1).toUpperCase() +poste.substring(1));
     return document.getElementById("ligne" + poste.substring(0,1).toUpperCase() +poste.substring(1));
 }
 
@@ -284,14 +279,23 @@ const trouveLigne = function(poste){
 const placeJoueur = function(){
     const poste = joueurChoisi.classList[1] // le poste correspond à la 2ème classe;
     const ligne = trouveLigne(poste);
+    console.log(poste);
     const emplacementLibre = trouveEmplacement(ligne)
     // Revoir la condition sûrement buguée
     if (emplacementLibre){
         // ajoute le nom du joueur et appelle la fonction permettant de mettre à jour la 
         // feuille de match
-        const nom = joueurChoisi.querySelector(".nom").textContent;
+        const nom = joueurChoisi.querySelector(".name").textContent;
         emplacementLibre.title = nom;
-        ajouteJoueurListe(nom, id);
+        console.log(joueurChoisi.id);
+        ajouteJoueurListe(nom, joueurChoisi.id);
+        emplacementLibre.style.backgroundImage="url('images/" + joueurChoisi.id.substring(2) + ".jpg')"
+        
+
+
+
+
+
 
         // TODO modifier l'image de l'emplacement Libre
 

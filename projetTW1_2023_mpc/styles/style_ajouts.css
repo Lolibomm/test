@@ -36,25 +36,25 @@ header{
 
 
 
-.cartegardien {
+.gardien {
   border: 2px solid purple;
   background-color: rgba(129, 14, 206, 0.5);
 
 }
 
-.cartedefenseur{
+.defenseur {
   border: 2px solid black;
   background-color: rgba(240, 236, 10, 0.5);
 
 }
 
-.cartemilieu{
+.milieu {
   border: 2px solid pink;
   background-color: rgba(207, 48, 146, 0.5);
 
 }
 
-.carteattaquant{
+.attaquant {
   border: 2px solid brown;
   background-color: rgba(202, 71, 10, 0.5);
 
