@@ -55,7 +55,10 @@ const viderFeuilleDeMatch = function(){
  * Réinitialise tous les effectifs du tableau HTML à 0
  */
 const effectifsA0=function(){
-    //TODO
+    const effectif=document.getElementsByTagName('td');
+    for (var i=0; i<effectif.length;i++){
+        effectif[i].textContent='0';
+    }
 }
 
 /** 
@@ -205,8 +208,6 @@ const creerJoueur = function(data){
         default:
             console.log('pas de poste');  
     }
-
-    // TODO : relisez bien la documentation
     return div
 }
 
@@ -219,15 +220,13 @@ const creerJoueur = function(data){
  * Abonne les <div> de class "joueur" à la fonction selectionneJoueur pour un click
  */
 const abonneClickJoueurs = function(){
-    let joueurChoisi = document.querySelectorAll(".cartejoueur");
-    console.log(joueurChoisi);
+     const joueur = document.querySelectorAll(".cartejoueur");
+    console.log(joueur);
 
-    for (let i = 0; i < joueurChoisi.length; i++) {
+    for (let i = 0; i < joueur.length; i++) {
         //console.log(joueurChoisi);
-        joueurChoisi[i].addEventListener("click", selectionneJoueur);
-  }
-
-    //TODO
+        joueur[i].addEventListener("click", selectionneJoueur);
+        }
 }
 
 /** 
@@ -251,13 +250,16 @@ const selectionneJoueur = function(){
  * @returns {HTMLElement || null} - une div de class "positions" disponible dans cette ligne
  */
 const trouveEmplacement = function(ligne){
-    const enfant = ligne.childNodes
-    console.log(enfant);
-    for (let i = 0; i < enfant.length; i++) {
-        if (enfant[i].firstchild == null){
-            return enfant[i]
-        }     
+    const position=ligne.querySelectorAll('.positions');
+    for(var i=0;i<position.length;i++){
+        if ((position[i].hasAttribute('title')==false) || position[i].getAttribute('title')==""){
+            return position[i];
+        }
+        else {
+
+        }
     }
+    return null;
 }
 
 /**
@@ -267,7 +269,6 @@ const trouveEmplacement = function(ligne){
  * @returns {HTMLElement} - une div parmi les id #ligne...
  */
 const trouveLigne = function(poste){
-    console.log("ligne" + poste.substring(0,1).toUpperCase() +poste.substring(1));
     return document.getElementById("ligne" + poste.substring(0,1).toUpperCase() +poste.substring(1));
 }
 
@@ -288,27 +289,22 @@ const placeJoueur = function(){
         const nom = joueurChoisi.querySelector(".name").textContent;
         emplacementLibre.title = nom;
         console.log(joueurChoisi.id);
-        ajouteJoueurListe(nom, joueurChoisi.id);
-        emplacementLibre.style.backgroundImage="url('images/" + joueurChoisi.id.substring(2) + ".jpg')"
-        
-
-
-
-
-
-
+        ajouteJoueurListe(nom, joueurChoisi.getAttribute('id'));
         // TODO modifier l'image de l'emplacement Libre
-
-        // TODO modifier l'id 
+        const image=joueurChoisi.querySelector('img').getAttribute('src');
+        emplacementLibre.style.backgroundImage='url('+image+')'; 
+        // TODO modifier l'id
+        emplacementLibre.id='p-'+joueurChoisi.getAttribute('id').substring(2);
 
         // TODO Empecher le click dans la zone joueur, et autorise celui dans la zone terrain
         // pour le joueur choisi 
-
+        document.querySelector('#joueurs '+'#'+joueurChoisi.getAttribute('id')).removeEventListener('click',selectionneJoueur);
+        emplacementLibre.addEventListener('click',deselectionneCompo);
         // mise à jour des effectifs de la table )
         miseAJourNeffectifs(poste, true);
     }
     else {
-        //joueurChoisi.style.opacity="";
+        joueurChoisi.style.opacity="";
     }     
         
 }
@@ -346,7 +342,35 @@ const deselectionneCompo = function(){
  * @param {Boolean} plus - true si le joueur est ajouté, false s'il est retiré
  */
 const miseAJourNeffectifs = function(poste, plus){
-    //TODO
+    td=document.getElementsByTagName("td");
+    if (poste=="gardien") 
+        if (plus==true){
+        td[0].textContent=parseInt(td[0].textContent)+1;
+        changeImageComplete(verifCompoComplete());
+    }
+        else {td[0].textContent=parseInt(td[0].textContent)-1;
+            changeImageComplete(verifCompoComplete());}
+    if (poste=="defenseur") 
+        if (plus==true){
+        td[1].textContent=parseInt(td[1].textContent)+1;
+        changeImageComplete(verifCompoComplete());
+    }
+        else {td[1].textContent=parseInt(td[1].textContent)-1;
+            changeImageComplete(verifCompoComplete());}
+    if (poste=="milieu") 
+        if (plus==true){
+        td[2].textContent=parseInt(td[2].textContent)+1;
+        changeImageComplete(verifCompoComplete());
+    }
+        else {td[2].textContent=parseInt(td[2].textContent)-1;
+            changeImageComplete(verifCompoComplete());}
+    if (poste=="attaquant") 
+        if (plus==true){
+        td[3].textContent=parseInt(td[3].textContent)+1;
+        changeImageComplete(verifCompoComplete());
+    }
+        else {td[3].textContent=parseInt(td[3].textContent)-1;
+            changeImageComplete(verifCompoComplete());}
 }
 
 
@@ -356,7 +380,10 @@ const miseAJourNeffectifs = function(poste, plus){
  * @returns {Boolean} - true si l'effectif est au complet, false sinon
  */
 const verifCompoComplete = function(){
-    //TODO
+    const td=document.getElementsByTagName("td");
+    if ((parseInt(td[0].textContent)+parseInt(td[1].textContent)+parseInt(td[2].textContent)+parseInt(td[3].textContent))==11)
+    {return true;}
+    else {return false;}
 }
 
 /*************************************************************
@@ -369,7 +396,13 @@ const verifCompoComplete = function(){
  * @param {Boolean} complet - true si l'effectif est complet, false sinon
  */
 const changeImageComplete = function(complet){
-    i//TODO
+    const imag=document.getElementById('check');
+    if(complet && raz) {
+        imag.src='./images/check.png';
+    }
+    else {
+        imag.src='./images/notok.png';
+    }
 }
 
 
@@ -378,7 +411,12 @@ const changeImageComplete = function(complet){
  * @param {String} nom - nom du joueur à retirer
  */
 const enleveJoueurFeuilleMatch = function(nom){
-    //TODO
+    const feuille = document.getElementsByTagName("li");
+    for( var i=0; i<feuille.length; i++) {
+        if (feuille[i].textContent==nom){
+            feuille[i].remove();
+        }
+    }
 }
 
 
