@@ -163,7 +163,6 @@ const creerJoueur = function(data){
     //console.log("data : " + JSON.stringify(data));
     // créer une div joueur (attention aux attributs nécessaires)
     const div = document.createElement('div');
-    div.setAttribute("class", "cartejoueur")
     // ID du joueur
     div.id =  "j-" + data.id
 
@@ -192,16 +191,16 @@ const creerJoueur = function(data){
     
     switch (data.poste){
         case 'gardien' :
-            div.setAttribute("class", "cartegardien")
+            div.setAttribute("class", "cartejoueur cartegardien")
             break
         case 'defenseur':
-            div.setAttribute("class","cartedefenseur")
+            div.setAttribute("class","cartejoueur cartedefenseur")
             break
         case 'milieu':
-            div.setAttribute("class","cartemilieu")
+            div.setAttribute("class","cartejoueur cartemilieu")
             break
         case 'attaquant':
-            div.setAttribute("class","carteattaquant")
+            div.setAttribute("class","cartejoueur carteattaquant")
             break
         default:
             console.log('pas de poste');  

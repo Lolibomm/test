@@ -23,10 +23,11 @@ header{
   padding: 10px;
 }
 
-#joueurs > div :hover{
-  cursor:pointer;
+.cartejoueur:hover{
+  cursor: pointer;
   border: 2px solid white;
 }
+
 
 #joueurs > div > img{
   width: 10em;  
