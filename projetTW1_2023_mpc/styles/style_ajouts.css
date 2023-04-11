@@ -12,13 +12,50 @@ header{
 }
 
 #joueurs {
-  /* CSS GRID ou FLEX */ 
+  /* CSS GRID ou FLEX  
+  display: inline-grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);*/
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
 }
 
-#joueurs > div {
-  border: 1px solid black;
-  width: min-content
+#joueurs > div :hover{
+  cursor:pointer;
+  border: 2px solid white;
+}
+
+#joueurs > div > img{
+  width: 10em;  
+}
+
+
+
+.cartegardien {
+  border: 2px solid purple;
+  background-color: rgba(129, 14, 206, 0.5);
+
+}
+
+.cartedefenseur{
+  border: 2px solid black;
+  background-color: rgba(240, 236, 10, 0.5);
+
+}
+
+.cartemilieu{
+  border: 2px solid pink;
+  background-color: rgba(207, 48, 146, 0.5);
+
+}
+
+.carteattaquant{
+  border: 2px solid brown;
+  background-color: rgba(202, 71, 10, 0.5);
+
 }
 
 h1>span:first-letter{

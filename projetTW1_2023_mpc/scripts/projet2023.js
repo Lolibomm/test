@@ -163,6 +163,7 @@ const creerJoueur = function(data){
     //console.log("data : " + JSON.stringify(data));
     // créer une div joueur (attention aux attributs nécessaires)
     const div = document.createElement('div');
+    div.setAttribute("class", "cartejoueur")
     // ID du joueur
     div.id =  "j-" + data.id
 
@@ -189,6 +190,23 @@ const creerJoueur = function(data){
 
     div.appendChild(infoDiv)
     
+    switch (data.poste){
+        case 'gardien' :
+            div.setAttribute("class", "cartegardien")
+            break
+        case 'defenseur':
+            div.setAttribute("class","cartedefenseur")
+            break
+        case 'milieu':
+            div.setAttribute("class","cartemilieu")
+            break
+        case 'attaquant':
+            div.setAttribute("class","carteattaquant")
+            break
+        default:
+            console.log('pas de poste');  
+    }
+
     // TODO : relisez bien la documentation
     return div
 }
@@ -202,6 +220,26 @@ const creerJoueur = function(data){
  * Abonne les <div> de class "joueur" à la fonction selectionneJoueur pour un click
  */
 const abonneClickJoueurs = function(){
+    let joueurChoisi = document.querySelectorAll(".cartejoueur");
+    console.log(joueurChoisi);
+
+    for (let i = 0; i < joueurChoisi.length; i++) {
+        console.log(joueurChoisi);
+        joueurChoisi[i].addEventListener("click", selectionneJoueur());
+  }
+   
+
+    
+    /* const joueur = document.querySelectorAll('.joueurs')
+    console.log(joueur);
+    joueur.forEach(element => {
+        console.log(element);
+        addEventListener('click',selectionneJoueur())
+        
+    });
+    
+    */
+
     //TODO
 }
 
@@ -209,9 +247,11 @@ const abonneClickJoueurs = function(){
  * Selectionne un joueur, change son opacité puis le place sur le terrain
  */
 const selectionneJoueur = function(){
-    joueurChoisi = this;
+    joueurChoisi = this
+    console.log(joueurChoisi.classList);
     this.style.opacity="0.3";
     placeJoueur();
+    
 }
 
 
