@@ -223,8 +223,8 @@ const abonneClickJoueurs = function(){
     console.log(joueurChoisi);
 
     for (let i = 0; i < joueurChoisi.length; i++) {
-        console.log(joueurChoisi);
-        joueurChoisi[i].addEventListener("click", selectionneJoueur());
+        //console.log(joueurChoisi);
+        joueurChoisi[i].addEventListener("click", selectionneJoueur);
   }
    
 
@@ -247,10 +247,8 @@ const abonneClickJoueurs = function(){
  */
 const selectionneJoueur = function(){
     joueurChoisi = this
-    console.log(joueurChoisi.classList);
-    this.style.opacity="0.3";
+    this.style.opacity = "0.3"
     placeJoueur();
-    
 }
 
 
@@ -287,6 +285,7 @@ const placeJoueur = function(){
     const poste = joueurChoisi.classList[1] // le poste correspond à la 2ème classe;
     const ligne = trouveLigne(poste);
     const emplacementLibre = trouveEmplacement(ligne)
+    // Revoir la condition sûrement buguée
     if (emplacementLibre){
         // ajoute le nom du joueur et appelle la fonction permettant de mettre à jour la 
         // feuille de match
@@ -304,8 +303,10 @@ const placeJoueur = function(){
         // mise à jour des effectifs de la table )
         miseAJourNeffectifs(poste, true);
     }
-    else     
-        joueurChoisi.style.opacity="";
+    else {
+        //joueurChoisi.style.opacity="";
+    }     
+        
 }
 
 
